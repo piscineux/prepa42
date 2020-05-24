@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -18,6 +17,15 @@ void 	ft_putchar(char c)
 	write(1,&c, 1);
 }
 
+void 	ft_triple_putchar(char c, char d, char e)
+{
+	write(1,&c,1);
+	write(1,&d,1);
+	write(1,&e,1);
+	if (c!='7'||d!='8')
+	write(1,", ",2);
+}
+
 void 	ft_print_comb(void)
 {
 	int i;
@@ -32,18 +40,14 @@ void 	ft_print_comb(void)
 		{
 			while (k<=9)
 			{
-			if (k>j)
-			{
-		        ft_putchar(i+48);
-			ft_putchar(j+48);
-			ft_putchar(k+48);
-			write(1,", ", 2);
-			}
+			if ((k>j)&&(k>i)&&(j>i))
+		        ft_triple_putchar(i+48, j+48, k+48);
 			k++;
 			}
 		k = 0;
 		j++;		
 		}
+	j=0;
 	i++;
 	}
 }
