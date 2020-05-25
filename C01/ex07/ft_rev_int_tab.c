@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_div_mod.c                              :+:      :+:    :+:   */
+/*   ft_rev_int_tab.c         	                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abesombes <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,22 +13,35 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void 	ft_ultimate_div_mod(int a, int b)
+void 	ft_putchar(char c)
 {
+	write(1,&c,1);
+}
+
+void 	ft_rev_int_tab(int *tab, int size)
+{
+	int i;
 	int temp;
-	
-	temp = a;
-	a = a / b;
-	b = temp % b;
-	printf("div: %i et mod: %i", a, b);
+
+	temp = 0;
+	i = 0;
+	while (i<=size/2)
+	{
+	temp = tab[i];
+	tab[i]=tab[size-1-i];
+	tab[size-1-i]=temp;
+	i++;
+	}
+	printf("\n Range: %i %i %i %i %i %i %i\n", tab[0], tab[1], tab[2], tab[3], tab[4], tab[5], tab[6]);
 }
 
 int 	main(void)
 {	
-	int a;
-	int b;
+	int range[7];
+	int i;
 
-	a = 23;
-	b = 6;
-	ft_ultimate_div_mod(a, b);
+	i = -1;
+	while (++i<=6)
+		range[i]=i;
+	ft_rev_int_tab(range,7);
 }

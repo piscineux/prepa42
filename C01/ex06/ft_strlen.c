@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_div_mod.c                              :+:      :+:    :+:   */
+/*   ft_strlen.c         	                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abesombes <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,22 +13,27 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void 	ft_ultimate_div_mod(int a, int b)
+void 	ft_putchar(char c)
 {
-	int temp;
-	
-	temp = a;
-	a = a / b;
-	b = temp % b;
-	printf("div: %i et mod: %i", a, b);
+	write(1,&c,1);
+}
+
+void 	ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (*str)
+	{
+	i++;
+	str++;
+	}
+	printf("\nNombre de caracteres: %i\n", i);
 }
 
 int 	main(void)
 {	
-	int a;
-	int b;
+	char str[10] = "hello ami";
 
-	a = 23;
-	b = 6;
-	ft_ultimate_div_mod(a, b);
+	ft_strlen(str);
 }

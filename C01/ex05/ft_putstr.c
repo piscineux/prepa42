@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_div_mod.c                              :+:      :+:    :+:   */
+/*   ft_putstr.c         	                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abesombes <marvin@42.fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,22 +13,23 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void 	ft_ultimate_div_mod(int a, int b)
+void 	ft_putchar(char c)
 {
-	int temp;
-	
-	temp = a;
-	a = a / b;
-	b = temp % b;
-	printf("div: %i et mod: %i", a, b);
+	write(1,&c,1);
+}
+
+void 	ft_putstr(char *str)
+{
+	while (*str)
+	{
+	ft_putchar(*str);
+	str++;
+	}
 }
 
 int 	main(void)
 {	
-	int a;
-	int b;
+	char str[5] = "hello";
 
-	a = 23;
-	b = 6;
-	ft_ultimate_div_mod(a, b);
+	ft_putstr(str);
 }
