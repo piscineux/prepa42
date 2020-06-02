@@ -14,89 +14,96 @@
 #include <unistd.h>
 #include <inttypes.h>
 
-void ft_putchar(char c)
+void 	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
-/*
-void ft_putstr_dec_to_hexa(char c)
-{
-	int i;
-	int a;
-	int b;
-	char hexbase[16]="0123456789abcdef";
-	
-	a = (c / 16);
-	b = (c % 16);
-	ft_putchar('\\');
-	ft_putchar(hexbase[a]);	
-	ft_putchar(hexbase[b]);
-}*/
 
-void ft_putstr_hexa(unsigned long long int addr)
+void 	ft_putchar_hexa(char c)
 {
-	int i;
+        int i;
+        int a;
+        int b;
+        char hexbase[16]="0123456789abcdef";
+
+        a = (c / 16);
+        b = (c % 16);
+        ft_putchar(hexbase[a]);
+        ft_putchar(hexbase[b]);
+}
+
+void 	ft_print_addr(unsigned long long int addr)
+{
 	int a;
 	unsigned long long int b;
+	char tab_addr[12];
 	char hexbase[16]="0123456789abcdef";
-	
-	if (addr > 16)	
-		ft_putstr_hexa(addr / 16);
-	b = (addr % 16);
-	ft_putchar(hexbase[b]);
-}
-/*
-void ft_print_addr(void *addr)
-	
-{
-	int i;
-	
-//	printf("\n\naddress = %lu", addr);
-	printf("\n\naddress = %p", addr);
-//	ft_putstr_dec_to_hexa(addr);
-	i = 0;
-	while (i<16)
+
+	a = 11;
+	write(1,"0000",4);
+	while (addr > 16)
 	{
-	ft_putchar(addr+48);
-	i++;
+		b = (addr % 16);
+		tab_addr[a]=hexbase[b];
+		addr = addr / 16;
+		a--;
 	}
-}*/
+	tab_addr[a]=hexbase[addr % 16];
+
+	a = 0;
+	while (a < 12)
+		ft_putchar(tab_addr[a++]);
+	ft_putchar(':');
+	ft_putchar(' ');
+}
+
+void ft_print_curraddr(unsigned long long int addr, int sizeleft)
+{
+	int a;
+	char *buffer = (char *)addr;
+
+	ft_print_addr(addr);	
+	a = 0;
+	while (a < 16 && addr)
+	{
+		if (a >= sizeleft)
+		write(1,"  ",2);
+		else
+		ft_putchar_hexa(buffer[a]);
+		if (a > 0 && a % 2 == 1)
+		ft_putchar(' ');
+	a++;
+	}
+	a = 0;
+	while (a < 16 && a < sizeleft && addr)
+		{
+
+			if ((buffer[a]<32)||(buffer[a]==127))
+			ft_putchar('.');
+			else
+			write(1,&(buffer[a]),1);
+			a++;
+		}
+		ft_putchar('\n');
+}
 
 void 	*ft_print_memory(void *addr, unsigned int size)
 {
 	unsigned int i;
-	int j;
 	
 	i = 0;
-	while (i<size)
+	while (i < size)
 	{
-	j = 0;
-		ft_putstr_hexa((unsigned long long int)addr + i);
-		ft_putchar(':');
-		ft_putchar(' ');
-		while (j<16 && addr)
-		{
-			ft_putchar('0');
-			j++;
-		}
-	i+=16;
+		ft_print_curraddr((unsigned long long int)addr + i, size - i);
+		i += 16;
 	}
 
-//	printf("\naddress1: %p", addr);
-//	printf("\naddress2: %p\n", addr+16);	
-//	printf("\nLocation in hex:      0x%.8" PRIXPTR "\n", (uintptr_t)addr);
 }
 int	main(void)
 {
-	char *str;
-        char *string;
-
-        string = "Bonjour les aminches\t\n\tc  est fou.tout.ce qu on peut faire avec...print_memory....lol.lol. ";
+	char  string[200] = "Bonjour les aminches\t\n\tc est fou.tout.ce qu on peut faire avec...print_memory....lol.lol. ";
 
 	void *p = &string;
-//	printf("\naddress with ft_putstr_hexa: \n");
-//	ft_putstr_hexa((unsigned long long int)p);
-	ft_putchar('\n');
-	ft_print_memory(p, 50);
+	ft_print_memory(p, 60);
 	return (0);
 }
